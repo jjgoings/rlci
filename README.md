@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/jjgoings/rlci.svg?branch=master)](https://travis-ci.com/jjgoings/rlci) 
+[![Build Status](https://travis-ci.com/jjgoings/rlci.svg?branch=main)](https://travis-ci.com/jjgoings/rlci)
 
 # Reinforcement Learning Configuration Interaction
 
