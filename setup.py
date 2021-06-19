@@ -7,8 +7,7 @@ setup(
     long_description=open('README.md').read(),
     packages=find_packages(),    
     license='MIT',
-    python_requires=">=3.4",
-    install_requires=['numpy >= 1.20'],
+    python_requires=">=3.4"
 )
 
 
