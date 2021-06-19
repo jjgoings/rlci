@@ -23,7 +23,7 @@ Goings, Joshua, Hang Hu, Chao Yang, and Xiaosong Li. "Reinforcement Learning Con
 and
 
 ```
-Li Zhou, Lihao Yan, Mark A. Caprio, Weiguo Gao, Chao Yang. ".Solving the k-sparse Eigenvalue Problem with Reinforcement Learning" arXiv, 2020. https://arxiv.org/abs/2009.04414.
+Li Zhou, Lihao Yan, Mark A. Caprio, Weiguo Gao, Chao Yang. "Solving the k-sparse Eigenvalue Problem with Reinforcement Learning" arXiv, 2020. https://arxiv.org/abs/2009.04414.
 ```
 
 as always, this is research code, so use at your own risk :)
