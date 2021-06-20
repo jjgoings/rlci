@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jjgoings/rlci.svg?branch=main)](https://travis-ci.com/jjgoings/rlci)
+
 # Reinforcement Learning Configuration Interaction
 
 <p align="center">
