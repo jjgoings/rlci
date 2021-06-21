@@ -20,9 +20,10 @@ def test_r1p0():
     E_greedy, _ = RL(M,k=k,mode='greedy') 
     assert_allclose(-3.2576363073108983,E_greedy)
 
-    # reinforcement learning CI -- depends on random seed, so leave out for now
-    #E_rl, s = RL(M, k, mode='rl', max_pick=50)
-    #assert_allclose(-3.257712745893338,E_rl)
+    # RLCI -- depends on random seed, so criteria is "looser"
+    E_rl, s = RL(M, k, mode='rl', max_pick=50, silent=True)
+    assert E_rl <= E_greedy
+
     
 def test_r1p5():
     M = np.loadtxt('full_hamiltonians/h6_1p50_ring.txt')
@@ -40,10 +41,11 @@ def test_r1p5():
     E_greedy, _ = RL(M,k=k,mode='greedy') 
     assert_allclose(-3.0306888446843683,E_greedy)
 
-    # reinforcement learning CI -- depends on random seed, so leave out for now
-    #E_rl, s = RL(M, k, mode='rl', max_pick=50)
-    #assert_allclose(-3.030818211580716,E_rl)
+    # RLCI -- depends on random seed, so criteria is "looser"
+    E_rl, s = RL(M, k, mode='rl', max_pick=50, silent=True)
+    assert E_rl <= E_greedy
     
+
 def test_r2p0():
     M = np.loadtxt('full_hamiltonians/h6_2p00_ring.txt')
     k = 40
@@ -60,7 +62,9 @@ def test_r2p0():
     E_greedy, _ = RL(M,k=k,mode='greedy') 
     assert_allclose(-2.867964486685051,E_greedy)
 
-    # reinforcement learning CI -- depends on random seed, so leave out for now
-    #E_rl, s = RL(M, k, mode='rl', max_pick=50)
-    #assert_allclose(-2.8688658290998363,E_rl)
-    
+    # RLCI -- depends on random seed, so criteria is "looser"
+    E_rl, s = RL(M, k, mode='rl', max_pick=50, silent=True)
+    assert E_rl <= E_greedy
+   
+
+ 

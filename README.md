@@ -39,7 +39,8 @@ python setup.py install
 ```
 
 ### Dependencies
-You'll need `numpy` and `tqdm` (for the nice progess bar in RLCI). Easiest way is just with `pip` 
+You'll need `numpy` and `tqdm` (for the nice progess bar in RLCI). Easiest way 
+is just with `pip` 
 
 ```
 pip install numpy tqdm
@@ -52,9 +53,11 @@ You can test the install with `nosetests`. In the head directory, just do
 nosetests tests
 ```
 
-it should take a few seconds, but everything should pass. You can uncomment out
-the RLCI tests in the test directory, but because RLCI has stochastic components
-it may not converge to exactly the same value on all machines / seeds.
+The tests are on the Hamiltonians in the `full_hamiltonians` directory. These 
+correspond to six-atom hydrogen chains (equidistant rings and 1D chains with a 
+STO-6G basis). Because RLCI has stochastic components, it may not converge to 
+exactly the same value on all machines so the test criteria is fairly loose 
+(e.g., just test that eigenvalue is lower than the "greedy" initialization).
 
 ## Running
 Once you've installed, you can try running the input script `sample_input.py`:

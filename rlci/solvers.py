@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 
 def RL(A, k, mode='rl', learning_rate=0.5, discount=0.99, max_episode=30,
-       max_pick=None):
+       max_pick=None,silent=False):
     """Returns the approximate eigenvalue and row indices for the k-sparse
        approximate solution to the lowest eigenpair of a matrix
 
@@ -49,7 +49,7 @@ def RL(A, k, mode='rl', learning_rate=0.5, discount=0.99, max_episode=30,
         max_pick = NDIM - k
 
     if mode == 'rl':
-        # initialize with ap-sCI for now
+        # initialize with greedy; random init can be good choice too
         E, idx = RL(A, k, mode='greedy')
         #idx = np.random.choice(range(NDIM),size=k,replace=False) 
 
@@ -77,21 +77,27 @@ def RL(A, k, mode='rl', learning_rate=0.5, discount=0.99, max_episode=30,
 
         w[active] = np.abs(C0)  # from initial guess
         w[active] /= np.linalg.norm(w[active])  # normalize
-        w[active] *= NDIM/len(active)  # scale
+        #w[active] *= len(active)/NDIM  # scale
 
         w[inactive] = perturb(A, state)  # PT guess at weights
         w[inactive] /= np.linalg.norm(w[inactive])  # normalize
-        w[inactive] *= NDIM/len(inactive)  # scale
+        #w[inactive] *= len(inactive)/NDIM  # scale
 
-        v = np.zeros_like(w)
+        v = np.zeros_like(w)  # auxilliary weights
 
-        progress_bar = tqdm(range(max_episode))  # keep track of progress
+
+        if not silent:
+            progress_bar = tqdm(range(max_episode))  # keep track of progress
+        else:
+            progress_bar = range(max_episode)  
 
         # outer loop is training episode
         for episode in progress_bar:
             # current status printed out to command line
-            progress_bar.set_description("Best energy: %.6f" % E_best)
-            #progress_bar.set_description("Current energy: %.6f" % E0)
+
+            if not silent:
+                progress_bar.set_description("Best energy: %.6f" % E_best)
+                #progress_bar.set_description("Current energy: %.6f" % E0)
 
             explore_rate = np.exp(-learning_rate*(episode+1))  # can tweak as desired
 
@@ -202,11 +208,11 @@ def RL(A, k, mode='rl', learning_rate=0.5, discount=0.99, max_episode=30,
 
                         assert p not in active
 
-                        # normal weight update
+                        # normal weight update; delta is TD error
                         delta = R + discount*np.dot(w,f(state2,(pp,qp))) - np.dot(w,f(state1,(p,q)))
                         aux = np.dot(f(state1,(p,q)),v) 
 
-                        # need to fix w * f
+                        # update w
                         w += learning_rate *\
                              (delta*f(state1,(p,q)) - discount*aux*f(state2,(pp,qp)))
 
@@ -268,6 +274,7 @@ def RL(A, k, mode='rl', learning_rate=0.5, discount=0.99, max_episode=30,
         return E_greedy, idx
 
     elif mode == 'full':
+        # does full matrix diagonalization ("exact" result)
         return np.linalg.eigvalsh(A)[0], None
 
 def f(state,a):
